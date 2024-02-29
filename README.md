@@ -68,3 +68,8 @@ The Bank App API provides the following endpoints:
    - Response:
      - User details including associated accounts.
      - Error message if user is not found or token is invalid.
+
+## Team
+1. **Zhumatay Sayana** - **22B030367**
+2. **Zhakyayev Islambek** - **22B031315**
+3. **Zhanserkeno Arsen** - **22B031492**
