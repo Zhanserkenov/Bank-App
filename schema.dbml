@@ -1,0 +1,23 @@
+// Defined database structure using DBML: https://dbml.org/docs/
+
+Table User {
+  ID int [primary key]
+  Username varchar
+  Email varchar
+  Password varchar
+}
+
+Table Account {
+  ID int [primary key]
+  Type varchar
+  Name varchar
+  Balance decimal
+  UserID int [ref: > User.ID]
+}
+
+Table Transaction {
+  ID int [primary key]
+  From int [ref: > Account.ID]
+  To int [ref: > Account.ID]
+  Amount decimal
+}
