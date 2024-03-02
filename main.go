@@ -1,14 +1,17 @@
 package main
 
 import (
-  "bank-app/api"
-  "bank-app/database"
+	"bank-app/api"
+	"bank-app/database"
 )
 
 func main() {
-  //migrations.Migrate()
-  
-  database.InitDatabase()
-  api.StartApi()
-}
+	db, err := database.ConnectDatabase()
+	if err != nil {
+		panic(err)
+	}
 
+	database.DB = db
+
+	api.StartApi()
+}
