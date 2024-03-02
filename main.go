@@ -6,12 +6,8 @@ import (
 )
 
 func main() {
-	db, err := database.ConnectDatabase()
-	if err != nil {
-		panic(err)
-	}
+	//migrations.Migrate()
 
-	database.DB = db
-
+	database.InitDatabase()
 	api.StartApi()
 }
