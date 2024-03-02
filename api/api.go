@@ -27,10 +27,18 @@ type Register struct {
 }
 
 type TransactionBody struct {
-	UserId uint
-	From   uint
-	To     uint
-	Amount int
+	UserId   uint
+	From     uint
+	To       uint
+	Amount   int
+	Currency string
+}
+
+type ConversionRequest struct {
+	UserID       uint
+	FromCurrency string
+	ToCurrency   string
+	Amount       uint
 }
 
 func readBody(r *http.Request) []byte {
@@ -93,12 +101,46 @@ func getMyTransactions(w http.ResponseWriter, r *http.Request) {
 func transaction(w http.ResponseWriter, r *http.Request) {
 	body := readBody(r)
 	auth := r.Header.Get("Authorization")
+
 	var formattedBody TransactionBody
 	err := json.Unmarshal(body, &formattedBody)
 	helpers.HandleErr(err)
 
-	transaction := useraccounts.Transaction(formattedBody.UserId, formattedBody.From, formattedBody.To, formattedBody.Amount, auth)
+	if formattedBody.UserId == 0 || formattedBody.From == 0 || formattedBody.To == 0 || formattedBody.Amount == 0 || formattedBody.Currency == "" {
+		apiResponse(map[string]interface{}{"message": "Missing required fields"}, w)
+		return
+	}
+
+	transaction := useraccounts.Transaction(formattedBody.UserId, formattedBody.From, formattedBody.To, formattedBody.Amount, formattedBody.Currency, auth)
 	apiResponse(transaction, w)
+}
+
+func convert(w http.ResponseWriter, r *http.Request) {
+
+	body := readBody(r)
+	auth := r.Header.Get("Authorization")
+
+	var formattedBody ConversionRequest
+	err := json.Unmarshal(body, &formattedBody)
+	helpers.HandleErr(err)
+
+	if !helpers.ValidateToken(fmt.Sprint(formattedBody.UserID), auth) {
+		apiResponse(map[string]interface{}{"message": "Not valid token"}, w)
+		return
+	}
+
+	convertedAmount := useraccounts.ConvertCurrency(formattedBody.UserID, formattedBody.FromCurrency, formattedBody.ToCurrency, formattedBody.Amount)
+
+	response := map[string]interface{}{
+		"message": "Conversion successful",
+		"data": map[string]interface{}{
+			"amount":           formattedBody.Amount,
+			"from_currency":    formattedBody.FromCurrency,
+			"to_currency":      formattedBody.ToCurrency,
+			"converted_amount": convertedAmount,
+		},
+	}
+	apiResponse(response, w)
 }
 
 func StartApi() {
@@ -109,7 +151,7 @@ func StartApi() {
 	router.HandleFunc("/transaction", transaction).Methods("POST")
 	router.HandleFunc("/transactions/{userID}", getMyTransactions).Methods("GET")
 	router.HandleFunc("/user/{id}", getUser).Methods("GET")
+	router.HandleFunc("/convert", convert).Methods("POST")
 	fmt.Println("App is working on port :8888")
 	log.Fatal(http.ListenAndServe(":8888", router))
 }
-
