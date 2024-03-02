@@ -1,3 +1,7 @@
+##Project Description
+
+This project is a simple banking application API built in Go (Golang). It provides basic functionalities for user registration, login, account management, and transactions. Below is an overview of the project structure and functionalities:
+
 ## Database Structure and Relationships
 
 The database structure for the Bank App consists of the following entities:
