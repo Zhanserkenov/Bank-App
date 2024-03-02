@@ -70,7 +70,7 @@ func Login(username string, pass string) map[string]interface{} {
 }
 
 func Register(username string, email string, pass string) map[string]interface{} {
-	// Add validation to registration
+
 	valid := helpers.Validation(
 		[]interfaces.Validation{
 			{Value: username, Valid: "username"},
@@ -82,11 +82,23 @@ func Register(username string, email string, pass string) map[string]interface{}
 		user := &interfaces.User{Username: username, Email: email, Password: generatedPassword}
 		database.DB.Create(&user)
 
-		account := &interfaces.Account{Type: "Daily Account", Name: string(username + "'s" + " account"), Balance: 0, UserID: user.ID}
+		account := &interfaces.Account{
+			Type: "Daily Account",
+			Name: string(username + "'s" + " account"),
+
+			BalanceKZT: 0,
+			BalanceUSD: 0,
+			BalanceEUR: 0,
+			UserID:     user.ID,
+		}
 		database.DB.Create(&account)
 
 		accounts := []interfaces.ResponseAccount{}
-		respAccount := interfaces.ResponseAccount{ID: account.ID, Name: account.Name, Balance: int(account.Balance)}
+		respAccount := interfaces.ResponseAccount{
+			ID:      account.ID,
+			Name:    account.Name,
+			Balance: int(account.BalanceKZT),
+		}
 		accounts = append(accounts, respAccount)
 		var response = prepareResponse(user, accounts, true)
 
@@ -94,12 +106,10 @@ func Register(username string, email string, pass string) map[string]interface{}
 	} else {
 		return map[string]interface{}{"message": "not valid values"}
 	}
-
 }
 
 func GetUser(id string, jwt string) map[string]interface{} {
 	isValid := helpers.ValidateToken(id, jwt)
-	// Find and return user
 	if isValid {
 		user := &interfaces.User{}
 		if database.DB.Where("id = ? ", id).First(&user).RecordNotFound() {
