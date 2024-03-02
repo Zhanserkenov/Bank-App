@@ -1,4 +1,4 @@
-##Project Description
+## Project Description
 
 This project is a simple banking application API built in Go (Golang). It provides basic functionalities for user registration, login, account management, and transactions. Below is an overview of the project structure and functionalities:
 
