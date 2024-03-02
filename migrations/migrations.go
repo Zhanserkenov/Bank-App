@@ -17,7 +17,12 @@ func createAccounts() {
 		user := &interfaces.User{Username: users[i].Username, Email: users[i].Email, Password: generatedPassword}
 		database.DB.Create(&user)
 
-		account := &interfaces.Account{Type: "Daily Account", Name: string(users[i].Username + "'s" + " account"), Balance: uint(10000 * int(i+1)), UserID: user.ID}
+		account := &interfaces.Account{
+			UserID:     user.ID,
+			BalanceKZT: uint(10000 * (i + 1)),
+			BalanceUSD: 0,
+			BalanceEUR: 0,
+		}
 		database.DB.Create(&account)
 	}
 }
