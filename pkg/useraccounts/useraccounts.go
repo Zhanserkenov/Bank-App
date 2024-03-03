@@ -3,10 +3,10 @@ package useraccounts
 import (
 	"fmt"
 
-	"bank-app/database"
-	"bank-app/helpers"
-	"bank-app/interfaces"
-	"bank-app/transactions"
+	"bank-app/pkg/database"
+	"bank-app/pkg/helpers"
+	"bank-app/pkg/interfaces"
+	"bank-app/pkg/transactions"
 )
 
 func updateAccount(id uint, amount int, currency string) interfaces.ResponseAccount {

@@ -1,7 +1,7 @@
 package database
 
 import (
-	"bank-app/helpers"
+	"bank-app/pkg/helpers"
 
 	"github.com/jinzhu/gorm"
 )

@@ -7,10 +7,10 @@ import (
 	"log"
 	"net/http"
 
-	"bank-app/helpers"
-	"bank-app/transactions"
-	"bank-app/useraccounts"
-	"bank-app/users"
+	"bank-app/pkg/helpers"
+	"bank-app/pkg/transactions"
+	"bank-app/pkg/useraccounts"
+	"bank-app/pkg/users"
 
 	"github.com/gorilla/mux"
 )
