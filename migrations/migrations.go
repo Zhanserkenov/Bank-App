@@ -1,9 +1,10 @@
 package migrations
 
 import (
-	"bank-app/database"
-	"bank-app/helpers"
-	"bank-app/interfaces"
+	"bank-app/pkg/database"
+	"bank-app/pkg/helpers"
+	"bank-app/pkg/interfaces"
+
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 

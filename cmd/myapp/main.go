@@ -1,8 +1,8 @@
 package main
 
 import (
-	"bank-app/api"
-	"bank-app/database"
+	"bank-app/pkg/api"
+	"bank-app/pkg/database"
 )
 
 func main() {
