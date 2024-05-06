@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DB_HOST: db
+      DB_USER: postgres
+      DB_PASS: 19660827
+      DB_NAME: bank-app
+      PORT: 8888
+      ENV: development
+      FILL: true
+      MIGRATIONS: file://migrations
+      DSN: postgres://postgres:19660827@db:5432/bank-app?sslmode=disable
+    ports:
+      - "8888:8888"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: bank-app
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 19660827
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
