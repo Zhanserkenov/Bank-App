@@ -3,10 +3,10 @@ package useraccounts
 import (
 	"fmt"
 
-	"bank-app/database"
-	"bank-app/helpers"
-	"bank-app/interfaces"
-	"bank-app/transactions"
+	"bank-app/internal/database"
+	"bank-app/internal/transactions"
+	"bank-app/pkg/helpers"
+	"bank-app/pkg/interfaces"
 )
 
 func getAccount(id uint) *interfaces.Account {

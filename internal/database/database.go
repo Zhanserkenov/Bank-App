@@ -1,12 +1,13 @@
 package database
 
 import (
-	"bank-app/helpers"
+	"bank-app/pkg/helpers"
 	"fmt"
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"os"
 	"time"
+
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
 
 // Структура данных для таблицы пользователей

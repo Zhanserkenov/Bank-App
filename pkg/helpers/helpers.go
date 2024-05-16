@@ -8,7 +8,8 @@ import (
 	"strconv"
 	"strings"
 
-	"bank-app/interfaces"
+	"bank-app/pkg/interfaces"
+
 	"github.com/dgrijalva/jwt-go"
 	_ "github.com/lib/pq"
 	"golang.org/x/crypto/bcrypt"

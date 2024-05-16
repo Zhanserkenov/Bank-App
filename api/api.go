@@ -8,10 +8,10 @@ import (
 	"net/http"
 	"strconv"
 
-	"bank-app/helpers"
-	"bank-app/transactions"
-	"bank-app/useraccounts"
-	"bank-app/users"
+	"bank-app/internal/transactions"
+	"bank-app/internal/useraccounts"
+	"bank-app/internal/users"
+	"bank-app/pkg/helpers"
 
 	"github.com/gorilla/mux"
 )

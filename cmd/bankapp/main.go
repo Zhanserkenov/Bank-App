@@ -2,7 +2,7 @@ package main
 
 import (
 	"bank-app/api"
-	"bank-app/database"
+	"bank-app/internal/database"
 )
 
 func main() {

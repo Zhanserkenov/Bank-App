@@ -3,9 +3,10 @@ package users
 import (
 	"time"
 
-	"bank-app/database"
-	"bank-app/helpers"
-	"bank-app/interfaces"
+	"bank-app/internal/database"
+	"bank-app/pkg/helpers"
+	"bank-app/pkg/interfaces"
+
 	"github.com/dgrijalva/jwt-go"
 	"golang.org/x/crypto/bcrypt"
 )
